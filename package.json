@@ -1,0 +1,27 @@
+{
+  "name": "pub-gatekeeper",
+  "version": "1.0.0",
+  "description": "oauth mediator for editor access to pub-server generated sites",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-gatekeeper.git"
+  },
+  "bin": {
+    "pub-gatekeeper": "./bin/pub-gatekeeper.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.13.2",
+    "compression": "^1.5.1",
+    "debug": "^2.2.0",
+    "express": "^4.13.1",
+    "logger-emitter": "^1.0.0",
+    "pub-pkg-github-oauth": "^1.1.0",
+    "pub-serve-sessions": "^1.0.0",
+    "pub-util": "^1.4.0"
+  },
+  "engines": {
+    "iojs": "2.3.x"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}
