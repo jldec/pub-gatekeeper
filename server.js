@@ -54,6 +54,12 @@ function gatekeeper(opts) {
 
   server.sessions.authorizeRoutes();
 
+  // CORS including preflight
+  server.app.all('*', function(req, res, next) {
+    res.set('Access-Control-Allow-Origin', '*');
+    next();
+  });
+
   require('pub-pkg-github-oauth')(server);
 
   require('./handle-errors')(server);
