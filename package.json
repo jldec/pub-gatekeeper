@@ -1,6 +1,6 @@
 {
   "name": "pub-gatekeeper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "oauth mediator for editor access to pub-server generated sites",
   "repository": {
     "type": "git",
