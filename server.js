@@ -9,6 +9,7 @@ var debug = require('debug')('pub:gatekeeper');
 var path = require('path');
 var events = require('events');
 var u = require('util');
+var express = require('express');
 
 u.inherits(gatekeeper, events.EventEmitter);
 
@@ -28,8 +29,9 @@ function gatekeeper(opts) {
   var server = this;
 
   if (!opts) {
-    try { opts = require(path.resolve('./pub-gatekeeper-config.js')); }
-    catch(err) { opts = {}; }
+    try { var optsPath = require.resolve('./pub-gatekeeper-config.js'); }
+    catch(err) {}
+    opts = optsPath ? require(optsPath) : {};
   }
 
   var log = opts.log = require('logger-emitter')().log;
@@ -38,13 +40,24 @@ function gatekeeper(opts) {
   opts.port        = opts.port       || process.env.PORT || '3333';
   opts.appUrl      = opts.appUrl     || process.env.APP  || ('http://localhost:' + opts.port);
 
+  debug(opts);
+
   server.opts = opts;
-  server.app = require('express')();
+  server.app = express();
   server.http = require('http').Server(server.app);
   server.app.disable('x-powered-by');
 
-  server.sessions = require('pub-serve-sessions')(server); // TODO: extract
   log('starting up', opts.appUrl);
+
+  server.sessions = require('pub-serve-sessions')(server);
+
+  // if authenticated, make req.user available for authz on other requests
+  server.app.all('*', function(req, res, next) {
+    if (req.session && req.session.user && !req.user) {
+        req.user = req.session.user;
+    }
+    next();
+  });
 
   // default middleware
   var bodyParser = require('body-parser');
@@ -61,6 +74,8 @@ function gatekeeper(opts) {
   });
 
   require('pub-pkg-github-oauth')(server);
+
+  server.app.use(express.static(__dirname + '/static'));
 
   require('./handle-errors')(server);
 
