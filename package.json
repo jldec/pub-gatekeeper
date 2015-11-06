@@ -1,6 +1,6 @@
 {
   "name": "pub-gatekeeper",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "oauth mediator for editor access to pub-server generated sites",
   "repository": {
     "type": "git",
@@ -10,14 +10,14 @@
     "pub-gatekeeper": "./bin/pub-gatekeeper.js"
   },
   "dependencies": {
-    "body-parser": "^1.13.2",
-    "compression": "^1.5.1",
+    "body-parser": "^1.14.1",
+    "compression": "^1.6.0",
     "debug": "^2.2.0",
-    "express": "^4.13.1",
-    "logger-emitter": "^1.0.0",
-    "pub-pkg-github-oauth": "^1.2.3",
-    "pub-serve-sessions": "^1.0.3",
-    "pub-util": "^2.0.0"
+    "express": "^4.13.3",
+    "logger-emitter": "^1.0.1",
+    "pub-pkg-github-oauth": "^1.2.5",
+    "pub-serve-sessions": "^1.0.5",
+    "pub-util": "^2.1.1"
   },
   "engines": {
     "iojs": "2.3.x"
