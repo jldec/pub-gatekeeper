@@ -6,13 +6,10 @@
 
 module.exports =
 {
-
-/*
-  port: 3333,
+  port: process.env.PORT || 3333,
   production: false,
-  appUrl: 'https://localhost:3333',
-
-*/
+  appUrl: process.env.APP || 'https://localhost:3333',
+  user: 'hello',
 
   github: {
     url: '/server/auth/github',
@@ -20,10 +17,17 @@ module.exports =
     expire: '30s'
   },
 
-  // comment this out if you're NOT using redis for session persistence
-  redis: {
-    prefix: 'sess-gatekeeper:',
-    _log: 'log-gatekeeper:'
+  session: {
+    cookie: { maxAge: 60*60*1000 },
   }
+}
 
+if (process.env.REDIS) {
+  opts.redis = {prefix: 'gatekeeper:', _log: 'log:'};
+  opts.session.secret = process.env.SSC
+}
+
+if (process.env.AUTH) {
+  opts.session.cookie.secure = true;
+  opts["trust proxy"] = 1;
 }

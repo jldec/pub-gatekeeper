@@ -1,12 +1,11 @@
 /*
  * pub-gatekeeper server.js
  * starts express, serves sessions, performs oauth for github and google
- * copyright 2015, Jurgen Leschner - github.com/jldec - MIT license
+ * copyright 2015-2020, Jürgen Leschner - github.com/jldec - MIT license
  */
 
 var debug = require('debug')('pub:gatekeeper');
 
-var path = require('path');
 var events = require('events');
 var u = require('util');
 var express = require('express');
@@ -46,6 +45,9 @@ function gatekeeper(opts) {
   server.app = express();
   server.http = require('http').Server(server.app);
   server.app.disable('x-powered-by');
+
+  // see https://expressjs.com/en/guide/behind-proxies.html
+  server.app.set('trust proxy', opts['trust proxy'] || false);
 
   log('starting up', opts.appUrl);
 

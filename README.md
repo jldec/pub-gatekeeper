@@ -1,15 +1,12 @@
 # pub-gatekeeper
 
+> NOTE: this repo is no longer being maintained.
+
 **pub-gatekeeper** is a node express server for mediating access to [pub-server](https://github.com/jldec/pub-server) generated sites.
 
 This makes it possible to edit and publish directly from the browser, without depending on another server to save files and generate the site.
 
 Think of it as a github pages [editor](https://github.com/jldec/pub-pkg-editor) and [generator](https://github.com/jldec/pub-generator) running inside your browser.
-
-### courtesy server
-A shared instance of this server is hosted at `https://gatekeeper.pubblz.com/`.
-
-Since this server handles oauth access tokens, some users may prefer to deploy their own private instance for additional security.
 
 ### oauth scope
 *repo* scope is required for read-write access to a specific github repo.
@@ -17,7 +14,6 @@ Since this server handles oauth access tokens, some users may prefer to deploy t
 The server also asks for *user:email* scope so that github identities can be used for role-based authorization with ACLs. Currently all authenticated users have admin rights in the editor.
 
 Details of the oauth2 web flow, are documented in  [pub-pkg-github-oauth](https://github.com/jldec/pub-pkg-github-oauth).
-
 
 ### configuration
 To run this server yourself `git clone` and then `npm install`
